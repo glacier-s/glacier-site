@@ -90,7 +90,7 @@ const props = withDefaults(defineProps<CardSwapProps>(), {
   height: 700,
   cardDistance: 60,
   verticalDistance: 70,
-  delay: 5000,
+  delay: 4000,
   pauseOnHover: false,
   skewAmount: 6,
   easing: "elastic",
@@ -319,6 +319,7 @@ onUnmounted(() => {
   perspective: 1000px;
   margin: $spacing-2xl $spacing-3xl;
   overflow: visible;
+  z-index: 0;
 
   @media (max-width: 768px) {
     transform: scale(0.75);

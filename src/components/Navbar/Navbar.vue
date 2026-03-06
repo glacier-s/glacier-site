@@ -34,6 +34,7 @@ const items: NavItem[] = [
   justify-content: center;
   pointer-events: none;
   padding: 0 $spacing-xl;
+  z-index: 10;
 }
 
 .navbar {
