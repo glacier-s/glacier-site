@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../components/common/Home.vue";
+import Home from "../components/Home/Home.vue";
 import Pallete from "../components/Pallete/Pallete.vue";
 import Collections from "../components/Pallete/Collections.vue";
 import Potions from "../components/Pallete/Potions.vue";
