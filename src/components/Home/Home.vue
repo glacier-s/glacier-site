@@ -1,51 +1,67 @@
 <script setup lang="ts">
+import HomeHero from "./HomeHero.vue";
+import CardSwap from "./CardSwap.vue";
+import SchemeCard from "./SchemeCard.vue";
+import { pallete } from "@/module/pallete";
 
+const handleCardClick = (index: number) => {
+  console.log(`Card ${index} clicked`);
+};
+
+const schemes = [
+  { name: "Zero", key: "zero" as const },
+  { name: "Mist", key: "mist" as const },
+  { name: "Peak", key: "peak" as const },
+] as const;
 </script>
 
 <template>
   <div class="home">
-    <h1>Warmer Ice</h1>
-    <p>A mystical colorscheme frozen in time. Journey through an eternal winter of crystalline magic and midnight ink.</p>
-    <router-link to="/ports" class="btn">Discover →</router-link>
+    <HomeHero />
+
+    <div class="home__card">
+      <CardSwap
+        :card-distance="60"
+        :vertical-distance="70"
+        :delay="5000"
+        :skew-amount="6"
+        easing="elastic"
+        :pause-on-hover="true"
+        :width="460"
+        :height="320"
+        @card-click="handleCardClick"
+      >
+        <template
+          v-for="(scheme, i) in schemes"
+          :key="scheme.key"
+          #[`card-${i}`]
+        >
+          <SchemeCard
+            :name="scheme.name"
+            :colors="pallete.colors[scheme.key]"
+          />
+        </template>
+      </CardSwap>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-
 .home {
-  margin: 0 $spacing-4xl;
+  margin: $spacing-4xl $spacing-4xl;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   height: 80vh;
+  overflow: visible;
+  position: relative;
 
-  h1 {
-    width: 400px;
-    font-size: $font-size-4xl;
-    color: var(--color-text);
-    margin-bottom: $spacing-md;
-  }
-
-  p {
-    width: 600px;
-    font-size: $font-size-lg;
-    color: var(--color-subtle);
-    margin-bottom: $spacing-xl;
-  }
-
-  .btn {
-    font-weight: $font-weight-semibold;
-    color: var(--color-text);
-    text-decoration: none;
-    padding: $spacing-md $spacing-xl;
-    background-color: var(--color-surface);
-    border-radius: $radius-pill;
-    transition: background-color $transition-base;
-
-    &:hover {
-      background-color: var(--color-overlay);
-    }
+  &__card {
+    position: relative;
+    flex-shrink: 0;
+    width: 640px;
+    height: 500px;
   }
 }
 </style>
