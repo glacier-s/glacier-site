@@ -317,6 +317,7 @@ onUnmounted(() => {
   bottom: 0;
   right: 0;
   perspective: 1000px;
+  margin: $spacing-2xl $spacing-3xl;
   overflow: visible;
 
   @media (max-width: 768px) {

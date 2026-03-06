@@ -74,219 +74,140 @@ const schemes = [
 
             <!-- Code lines preview -->
             <div class="scheme-card__body">
-              <!-- Line 1 - keyword + function + params -->
+              <!-- Line 1 -->
               <div class="scheme-card__line">
-                <span
-                  class="pill"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].cyanide + '33',
-                    color: pallete.colors[scheme.key].cyanide,
-                  }"
-                  >import</span
-                >
-                <span
-                  class="pill sm"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].text + '22',
-                    color: pallete.colors[scheme.key].text,
-                  }"
-                  >{ ref</span
-                >
-                <span
-                  class="pill"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].cyanide + '33',
-                    color: pallete.colors[scheme.key].cyanide,
-                  }"
-                  >computed</span
-                >
                 <span
                   class="pill lg"
                   :style="{
-                    backgroundColor: pallete.colors[scheme.key].amber + '33',
-                    color: pallete.colors[scheme.key].amber,
+                    backgroundColor: pallete.colors[scheme.key].cyanide,
                   }"
-                  >from 'vue'</span
-                >
+                ></span>
+                <span
+                  class="pill sm"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].leaf }"
+                ></span>
+                <span
+                  class="pill md"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].lilac }"
+                ></span>
+                <span
+                  class="pill sm"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].muted }"
+                ></span>
               </div>
+
               <!-- Line 2 -->
               <div class="scheme-card__line">
                 <span
-                  class="pill"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].cyanide + '33',
-                    color: pallete.colors[scheme.key].cyanide,
-                  }"
-                  >import</span
-                >
-                <span
                   class="pill sm"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].text + '22',
-                    color: pallete.colors[scheme.key].text,
-                  }"
-                  >Api</span
-                >
-                <span
-                  class="pill"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].cyanide + '33',
-                    color: pallete.colors[scheme.key].cyanide,
-                  }"
-                  >from</span
-                >
-                <span
-                  class="pill xl"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].amber + '33',
-                    color: pallete.colors[scheme.key].amber,
-                  }"
-                  >'./api.ts'</span
-                >
-              </div>
-
-              <!-- Blank gap -->
-              <div class="scheme-card__line gap"></div>
-
-              <!-- Line 3 - const declaration -->
-              <div class="scheme-card__line">
-                <span
-                  class="pill"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].leaf + '33',
-                    color: pallete.colors[scheme.key].leaf,
-                  }"
-                  >const</span
-                >
-                <span
-                  class="pill md"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].petal + '33',
-                    color: pallete.colors[scheme.key].petal,
-                  }"
-                  >color</span
-                >
-                <span
-                  class="pill sm"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].lilac + '33',
-                    color: pallete.colors[scheme.key].lilac,
-                  }"
-                  >ref</span
-                >
-                <span
-                  class="pill sm"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].muted + '44',
-                    color: pallete.colors[scheme.key].muted,
-                  }"
-                  >''</span
-                >
-              </div>
-              <!-- Line 4 - object -->
-              <div class="scheme-card__line">
-                <span
-                  class="pill indent"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].leaf + '33',
-                    color: pallete.colors[scheme.key].leaf,
-                  }"
-                  >coral</span
-                >
+                  :style="{ backgroundColor: pallete.colors[scheme.key].petal }"
+                ></span>
                 <span
                   class="pill lg"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].coral + '33',
-                    color: pallete.colors[scheme.key].coral,
-                  }"
-                  >{{ pallete.colors[scheme.key].coral }}</span
-                >
+                  :style="{ backgroundColor: pallete.colors[scheme.key].amber }"
+                ></span>
                 <span
                   class="pill md"
                   :style="{
-                    backgroundColor: pallete.colors[scheme.key].lilac + '33',
-                    color: pallete.colors[scheme.key].lilac,
+                    backgroundColor: pallete.colors[scheme.key].cyanide,
                   }"
-                  >petal</span
-                >
+                ></span>
                 <span
-                  class="pill"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].muted + '44',
-                    color: pallete.colors[scheme.key].muted,
-                  }"
-                  >...</span
-                >
+                  class="pill sm"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].muted }"
+                ></span>
               </div>
+
+              <div class="scheme-card__line gap"></div>
+
+              <!-- Line 3 -->
+              <div class="scheme-card__line">
+                <span
+                  class="pill md"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].leaf }"
+                ></span>
+                <span
+                  class="pill lg"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].petal }"
+                ></span>
+                <span
+                  class="pill sm"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].lilac }"
+                ></span>
+              </div>
+
+              <!-- Line 4 -->
+              <div class="scheme-card__line">
+                <span
+                  class="pill indent lg"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].leaf }"
+                ></span>
+                <span
+                  class="pill md"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].coral }"
+                ></span>
+                <span
+                  class="pill sm"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].muted }"
+                ></span>
+              </div>
+
               <!-- Line 5 -->
               <div class="scheme-card__line">
                 <span
-                  class="pill indent"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].leaf + '33',
-                    color: pallete.colors[scheme.key].leaf,
-                  }"
-                  >amber</span
-                >
+                  class="pill indent sm"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].amber }"
+                ></span>
                 <span
                   class="pill lg"
                   :style="{
-                    backgroundColor: pallete.colors[scheme.key].amber + '33',
-                    color: pallete.colors[scheme.key].amber,
+                    backgroundColor: pallete.colors[scheme.key].cyanide,
                   }"
-                  >{{ pallete.colors[scheme.key].amber }}</span
-                >
+                ></span>
                 <span
                   class="pill md"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].cyanide + '33',
-                    color: pallete.colors[scheme.key].cyanide,
-                  }"
-                  >leaf</span
-                >
+                  :style="{ backgroundColor: pallete.colors[scheme.key].petal }"
+                ></span>
                 <span
                   class="pill sm"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].muted + '44',
-                    color: pallete.colors[scheme.key].muted,
-                  }"
-                  >false</span
-                >
+                  :style="{ backgroundColor: pallete.colors[scheme.key].muted }"
+                ></span>
               </div>
+
+              <div class="scheme-card__line gap"></div>
+
               <!-- Line 6 -->
               <div class="scheme-card__line">
                 <span
-                  class="pill indent"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].leaf + '33',
-                    color: pallete.colors[scheme.key].leaf,
-                  }"
-                  >lilac</span
-                >
+                  class="pill md"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].leaf }"
+                ></span>
                 <span
                   class="pill lg"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].lilac + '33',
-                    color: pallete.colors[scheme.key].lilac,
-                  }"
-                  >{{ pallete.colors[scheme.key].lilac }}</span
-                >
-                <span
-                  class="pill md"
-                  :style="{
-                    backgroundColor: pallete.colors[scheme.key].petal + '33',
-                    color: pallete.colors[scheme.key].petal,
-                  }"
-                  >cyanide</span
-                >
+                  :style="{ backgroundColor: pallete.colors[scheme.key].lilac }"
+                ></span>
                 <span
                   class="pill sm"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].muted }"
+                ></span>
+              </div>
+
+              <!-- Line 7 -->
+              <div class="scheme-card__line">
+                <span
+                  class="pill indent md"
                   :style="{
-                    backgroundColor: pallete.colors[scheme.key].muted + '44',
-                    color: pallete.colors[scheme.key].muted,
+                    backgroundColor: pallete.colors[scheme.key].cyanide,
                   }"
-                  >null</span
-                >
+                ></span>
+                <span
+                  class="pill lg"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].coral }"
+                ></span>
+                <span
+                  class="pill sm"
+                  :style="{ backgroundColor: pallete.colors[scheme.key].amber }"
+                ></span>
               </div>
             </div>
 
@@ -295,7 +216,6 @@ const schemes = [
               class="scheme-card__footer"
               :style="{
                 backgroundColor: pallete.colors[scheme.key].surface,
-                color: pallete.colors[scheme.key].muted,
               }"
             >
               <span>⌥</span>
@@ -440,6 +360,7 @@ const schemes = [
   font-weight: 500;
   white-space: nowrap;
   line-height: 1.5;
+  min-height: 15px;
 
   &.sm {
     min-width: 36px;
@@ -458,6 +379,7 @@ const schemes = [
   }
 
   &.indent {
+    min-width: 44px;
     margin-left: 14px;
   }
 }
