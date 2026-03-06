@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { pallete } from '@/theme/pallete';
+import { pallete } from '@/module/pallete';
 
 type VariantKey = keyof typeof pallete.colors;
 

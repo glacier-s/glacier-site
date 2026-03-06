@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { pallete } from '@/theme/pallete';
+import { pallete } from '@/module/pallete';
 </script>
 
 <template>
@@ -24,7 +24,7 @@ import { pallete } from '@/theme/pallete';
     </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 header {
     @include flex-between;
     margin: $spacing-3xl $spacing-4xl;
@@ -33,7 +33,7 @@ header {
         @include flex-column;
 
         h4 {
-            font-size: $font-size-lg;
+            font-size: $font-size-xl;
             font-weight: $font-weight-bold;
             color: var(--color-text);
             margin: 0;

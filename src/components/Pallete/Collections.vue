@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { pallete } from '@/theme/pallete';
+import { pallete } from '@/module/pallete';
 
 type RoleKey = keyof typeof pallete.roles;
 type VariantKey = keyof typeof pallete.colors;

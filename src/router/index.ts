@@ -3,6 +3,7 @@ import Home from "../components/common/Home.vue";
 import Pallete from "../components/Pallete/Pallete.vue";
 import Collections from "../components/Pallete/Collections.vue";
 import Potions from "../components/Pallete/Potions.vue";
+import Ports from "../components/Ports/Ports.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -29,6 +30,11 @@ const router = createRouter({
                 },
             ],
         },
+        {
+            path: "/ports",
+            name: "Ports",
+            component: Ports,
+        },  
     ],
 });
 
