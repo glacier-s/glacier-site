@@ -23,8 +23,7 @@ defineProps<Props>();
 
 <style scoped lang="scss">
 .nav-links {
-  display: flex;
-  align-items: center;
+  @include flex-center;
   gap: $spacing-md;
   margin: 0;
   padding: 0;

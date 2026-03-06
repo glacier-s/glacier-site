@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import NavLogo from "./NavLogo.vue";
-import NavPills from "./NavPills.vue";
+import NavItems from "./NavItems.vue";
 import ThemeSwitcher from "./ThemeSwitcher.vue";
-import type { NavItem } from "./NavPills.vue";
+import type { NavItem } from "./NavItems.vue";
 
 const items: NavItem[] = [
   { label: "Ports", href: "/ports" },
@@ -17,7 +17,7 @@ const items: NavItem[] = [
         <NavLogo />
       </div>
       <div class="navbar-end">
-        <NavPills :items="items" />
+        <NavItems :items="items" />
         <ThemeSwitcher />
       </div>
     </div>
