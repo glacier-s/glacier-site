@@ -190,8 +190,8 @@ section {
     }
 
     &.active {
-        background-color: var(--color-lilac);
-        border-color: var(--color-lilac);
+        background-color: var(--color-amber);
+        border-color: var(--color-amber);
         color: var(--color-base);
         font-weight: $font-weight-semibold;
     }

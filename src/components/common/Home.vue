@@ -6,7 +6,7 @@
   <div class="home">
     <h1>Warmer Ice</h1>
     <p>A mystical colorscheme frozen in time. Journey through an eternal winter of crystalline magic and midnight ink.</p>
-    <router-link to="/pallete" class="btn">Discover →</router-link>
+    <router-link to="/ports" class="btn">Discover →</router-link>
   </div>
 </template>
 
