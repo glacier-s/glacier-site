@@ -1,28 +1,111 @@
+<script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref, useTemplateRef } from "vue";
+
+const themes = ["zero", "mist", "peak"] as const;
+const currentTheme = ref<string>("zero");
+const showThemeMenu = ref(false);
+
+const setTheme = (theme: string) => {
+  currentTheme.value = theme;
+  document.documentElement.setAttribute("data-theme", theme);
+  showThemeMenu.value = false;
+  localStorage.setItem("glacier-theme", theme);
+};
+
+const toggleThemeMenu = () => {
+  showThemeMenu.value = !showThemeMenu.value;
+};
+
+const buttonRef = useTemplateRef<HTMLButtonElement>("buttonRef");
+const menuRef = useTemplateRef<HTMLDivElement>("menuRef");
+
+const handleClickOutside = (e: MouseEvent) => {
+  if (
+    showThemeMenu.value &&
+    buttonRef.value &&
+    menuRef.value &&
+    !buttonRef.value.contains(e.target as Node) &&
+    !menuRef.value.contains(e.target as Node)
+  ) {
+    showThemeMenu.value = false;
+  }
+};
+
+onMounted(() => {
+  const saved = localStorage.getItem("glacier-theme");
+  if (saved && themes.includes(saved as (typeof themes)[number])) {
+    currentTheme.value = saved;
+  }
+  document.addEventListener("click", handleClickOutside);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener("click", handleClickOutside);
+});
+</script>
+
 <template>
   <div class="home-hero">
-    <h1>Warmer Ice</h1>
+    <div class="home-hero__theme">
+      <button
+        ref="buttonRef"
+        class="home-hero__theme-btn"
+        @click="toggleThemeMenu"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect x="1" y="1" width="4" height="4" rx="1" fill="currentColor" />
+          <rect x="6" y="1" width="4" height="4" rx="1" fill="currentColor" />
+          <rect x="11" y="1" width="4" height="4" rx="1" fill="currentColor" />
+          <rect x="1" y="6" width="4" height="4" rx="1" fill="currentColor" />
+          <rect x="6" y="6" width="4" height="4" rx="1" fill="currentColor" />
+          <rect x="11" y="6" width="4" height="4" rx="1" fill="currentColor" />
+          <rect x="1" y="11" width="4" height="4" rx="1" fill="currentColor" />
+          <rect x="6" y="11" width="4" height="4" rx="1" fill="currentColor" />
+          <rect x="11" y="11" width="4" height="4" rx="1" fill="currentColor" />
+        </svg>
+        New Background
+      </button>
+
+      <Transition name="theme-fade">
+        <div v-if="showThemeMenu" ref="menuRef" class="home-hero__theme-menu">
+          <button
+            v-for="theme in themes"
+            :key="theme"
+            class="home-hero__theme-option"
+            :class="{ active: currentTheme === theme }"
+            @click="setTheme(theme)"
+          >
+            <span
+              class="home-hero__theme-preview"
+              :class="`home-hero__theme-preview--${theme}`"
+            />
+            <span>{{ theme }}</span>
+          </button>
+        </div>
+      </Transition>
+    </div>
+
+    <h1>Oh, the weather outside is frightful!</h1>
     <p>
       A mystical colorscheme frozen in time. Journey through an eternal winter
       of crystalline magic and midnight ink.
     </p>
-    <router-link to="/ports" class="btn">Discover →</router-link>
 
-    <div class="home-hero__nav">
-      <router-link to="/ports" class="nav-card">
-        <span class="nav-card__icon">⌘</span>
-        <div class="nav-card__content">
-          <span class="nav-card__title">Ports</span>
-          <span class="nav-card__desc">Browse integrations</span>
-        </div>
-        <span class="nav-card__arrow">→</span>
+    <div class="home-hero__actions">
+      <router-link to="/ports" class="home-hero__btn home-hero__btn--primary">
+        Ports
       </router-link>
-      <router-link to="/pallete" class="nav-card">
-        <span class="nav-card__icon">◈</span>
-        <div class="nav-card__content">
-          <span class="nav-card__title">Pallete</span>
-          <span class="nav-card__desc">Explore the colors</span>
-        </div>
-        <span class="nav-card__arrow">→</span>
+      <router-link
+        to="/pallete"
+        class="home-hero__btn home-hero__btn--secondary"
+      >
+        Pallete
       </router-link>
     </div>
   </div>
@@ -32,93 +115,165 @@
 .home-hero {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
+  text-align: center;
   z-index: 1;
+  max-width: 800px;
 
   h1 {
-    width: 400px;
-    font-size: $font-size-4xl;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
     color: var(--color-text);
     margin-bottom: $spacing-md;
+    line-height: $line-height-tight;
   }
 
   p {
-    width: 500px;
+    max-width: 560px;
     font-size: $font-size-lg;
     color: var(--color-subtle);
+    margin-bottom: $spacing-2xl;
+    line-height: $line-height-base;
+  }
+
+  &__theme {
+    position: relative;
     margin-bottom: $spacing-xl;
   }
 
-  .btn {
-    font-weight: $font-weight-semibold;
-    color: var(--color-text);
-    text-decoration: none;
-    padding: $spacing-md $spacing-xl;
-    background-color: var(--color-surface);
+  &__theme-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-sm;
+    padding: $spacing-sm $spacing-lg;
+    border: 1px solid var(--color-highlight-high);
     border-radius: $radius-pill;
-    transition: background-color $transition-base;
+    background: transparent;
+    color: var(--color-text);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition:
+      background-color $transition-fast,
+      border-color $transition-fast;
+
+    &:hover {
+      background-color: var(--color-overlay);
+      border-color: var(--color-subtle);
+    }
+  }
+
+  &__theme-menu {
+    position: absolute;
+    top: calc(100% + #{$spacing-sm});
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 4px;
+    min-width: 160px;
+    border-radius: $radius-lg;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-highlight-med);
+    box-shadow: $shadow-lg;
+    z-index: $z-dropdown;
+  }
+
+  &__theme-option {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    padding: $spacing-sm $spacing-md;
+    border: none;
+    border-radius: $radius-md;
+    background: transparent;
+    color: var(--color-text);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    text-transform: capitalize;
+    cursor: pointer;
+    transition: background-color $transition-fast;
 
     &:hover {
       background-color: var(--color-overlay);
     }
+
+    &.active {
+      background-color: var(--color-highlight-med);
+    }
   }
 
-  &__nav {
+  &__theme-preview {
+    width: 16px;
+    height: 16px;
+    border-radius: $radius-pill;
+    border: 2px solid var(--color-muted);
+
+    &--zero {
+      background-color: #13131c;
+    }
+
+    &--mist {
+      background-color: #1a1b26;
+    }
+
+    &--peak {
+      background-color: #ffffff;
+    }
+  }
+
+  &__actions {
     display: flex;
-    gap: $spacing-md;
-    margin-top: $spacing-2xl;
+    gap: $spacing-lg;
+  }
+
+  &__btn {
+    padding: $spacing-md $spacing-2xl;
+    border-radius: $radius-pill;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    text-decoration: none;
+    transition:
+      background-color $transition-base,
+      border-color $transition-base,
+      transform $transition-fast;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &--primary {
+      background-color: var(--color-text);
+      color: var(--color-base);
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+
+    &--secondary {
+      background-color: var(--color-highlight-med);
+      color: var(--color-text);
+      border: 1px solid var(--color-highlight-high);
+
+      &:hover {
+        background-color: var(--color-highlight-high);
+      }
+    }
   }
 }
 
-.nav-card {
-  display: flex;
-  align-items: center;
-  gap: $spacing-md;
-  padding: $spacing-md $spacing-lg;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-highlight-med);
-  border-radius: $radius-lg;
-  text-decoration: none;
-  transition: background-color $transition-base, border-color $transition-base;
-  min-width: 200px;
+.theme-fade-enter-active,
+.theme-fade-leave-active {
+  transition:
+    opacity $transition-fast,
+    transform $transition-fast;
+}
 
-  &:hover {
-    background-color: var(--color-overlay);
-    border-color: var(--color-highlight-high);
-  }
-
-  &__icon {
-    font-size: $font-size-xl;
-    color: var(--color-lilac);
-    flex-shrink: 0;
-  }
-
-  &__content {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-3xs;
-  }
-
-  &__title {
-    font-size: $font-size-base;
-    font-weight: $font-weight-semibold;
-    color: var(--color-text);
-  }
-
-  &__desc {
-    font-size: $font-size-xs;
-    color: var(--color-muted);
-  }
-
-  &__arrow {
-    margin-left: auto;
-    font-size: $font-size-base;
-    color: var(--color-muted);
-    transition: color $transition-base;
-  }
-
-  &:hover &__arrow {
-    color: var(--color-text);
-  }
+.theme-fade-enter-from,
+.theme-fade-leave-to {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-4px);
 }
 </style>
