@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
 import Navbar from './components/Navbar/Navbar.vue'
 import Footer from './components/common/Footer.vue'
+
+const route = useRoute();
 </script>
 
 <template>
-  <Navbar />
+  <Navbar v-if="!route.meta.hideNavbar" />
   <router-view />
-  <Footer />
+  <Footer v-if="!route.meta.hideFooter" />
 </template>
