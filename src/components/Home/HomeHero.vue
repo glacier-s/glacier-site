@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, useTemplateRef } from "vue";
 
+type Theme = "zero" | "mist" | "peak";
+
 const themes = ["zero", "mist", "peak"] as const;
-const currentTheme = ref<string>("zero");
+const currentTheme = ref<Theme>("zero");
 const showThemeMenu = ref(false);
 
-const setTheme = (theme: string) => {
+const setTheme = (theme: Theme) => {
   currentTheme.value = theme;
   document.documentElement.setAttribute("data-theme", theme);
   showThemeMenu.value = false;
@@ -33,9 +35,10 @@ const handleClickOutside = (e: MouseEvent) => {
 
 onMounted(() => {
   const saved = localStorage.getItem("glacier-theme");
-  if (saved && themes.includes(saved as (typeof themes)[number])) {
+  if (saved && themes.includes(saved as Theme)) {
     currentTheme.value = saved;
   }
+  document.documentElement.setAttribute("data-theme", currentTheme.value);
   document.addEventListener("click", handleClickOutside);
 });
 
