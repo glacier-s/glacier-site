@@ -72,7 +72,6 @@ section {
 
 .port-grid-wrapper {
     flex: 1;
-    overflow-y: auto;
     @include custom-scrollbar;
 }
 
