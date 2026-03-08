@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Github from '@/assets/svg/github.svg';
+
 const currentYear: number = new Date().getFullYear();
 </script>
 
@@ -6,7 +8,7 @@ const currentYear: number = new Date().getFullYear();
   <footer>
     <p>Copyright &copy; {{ currentYear }} Glacier</p>
     <a class="icon" href="https://github.com/kuzanf3b/glacier.git">
-      <img src="@/assets/svg/github.svg" alt="github" />
+      <img :src="Github" alt="github" />
     </a>
   </footer>
 </template>
@@ -22,14 +24,13 @@ footer {
     font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
   }
-}
 
-.icon {
-  @include flex-center;
+  .icon {
+    @include flex-center;
 
-  img {
-    width: 24px;
-    margin-right: $sidebar-width;
+    img {
+      width: 24px;
+    }
   }
 }
 </style>
