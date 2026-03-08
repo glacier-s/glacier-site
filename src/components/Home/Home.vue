@@ -1,67 +1,60 @@
 <script setup lang="ts">
 import HomeHero from "./HomeHero.vue";
-import CardSwap from "./CardSwap.vue";
-import SchemeCard from "./SchemeCard.vue";
-import { pallete } from "@/module/pallete";
+import PixelSnow from "./PixelSnow.vue";
+import { ref, onMounted } from "vue";
 
-const handleCardClick = (index: number) => {
-  console.log(`Card ${index} clicked`);
+const snowColor = ref("#E0E0ED");
+
+const getCSSVar = (name: string) =>
+  getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+const updateColor = () => {
+  snowColor.value = getCSSVar("--color-text") || "#E0E0ED";
 };
 
-const schemes = [
-  { name: "Zero", key: "zero" as const },
-  { name: "Mist", key: "mist" as const },
-  { name: "Peak", key: "peak" as const },
-] as const;
+onMounted(() => {
+  updateColor();
+  const observer = new MutationObserver(() => updateColor());
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+});
 </script>
 
 <template>
   <div class="home">
+    <PixelSnow
+      :color="snowColor"
+      :flakeSize="0.01"
+      :minFlakeSize="1.25"
+      :pixelResolution="500"
+      :speed="1.25"
+      :density="0.4"
+      :direction="125"
+      :brightness="0.8"
+      :variant="'snowflake'"
+      class="home__snow"
+    />
     <HomeHero />
-
-    <div class="home__card">
-      <CardSwap
-        :card-distance="60"
-        :vertical-distance="70"
-        :delay="5000"
-        :skew-amount="6"
-        easing="elastic"
-        :pause-on-hover="true"
-        :width="460"
-        :height="320"
-        @card-click="handleCardClick"
-      >
-        <template
-          v-for="(scheme, i) in schemes"
-          :key="scheme.key"
-          #[`card-${i}`]
-        >
-          <SchemeCard
-            :name="scheme.name"
-            :colors="pallete.colors[scheme.key]"
-          />
-        </template>
-      </CardSwap>
-    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .home {
-  margin: $spacing-4xl $spacing-4xl;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  height: 80vh;
-  overflow: visible;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
   position: relative;
 
-  &__card {
-    position: relative;
-    flex-shrink: 0;
-    width: 640px;
-    height: 500px;
+  &__snow {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
   }
 }
 </style>

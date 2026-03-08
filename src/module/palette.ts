@@ -1,4 +1,4 @@
-export const pallete = {
+export const palette = {
     name: "Glacier",
     description: "A mystical journey through frozen pastels and midnight ink.",
     colors: {

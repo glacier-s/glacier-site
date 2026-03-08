@@ -6,7 +6,7 @@ import type { NavItem } from "./NavItems.vue";
 
 const items: NavItem[] = [
   { label: "Ports", href: "/ports" },
-  { label: "Pallete", href: "/pallete" },
+  { label: "Palette", href: "/palette" },
 ];
 </script>
 
