@@ -15,11 +15,6 @@ export const ports = {
                 repo: "https://github.com/tmux/tmux"
             },
             {
-                name: "Wofi",
-                icon: "app" as const,
-                repo: "https://github.com/davatorium/rofi"
-            },
-            {
                 name: "Rofi",
                 icon: "app" as const,
                 repo: "https://github.com/davatorium/rofi"
@@ -41,11 +36,6 @@ export const ports = {
                 icon: "terminal" as const,
                 repo: "https://github.com/alacritty/alacritty"
             },
-            {
-                name: "Kitty",
-                icon: "terminal" as const,
-                repo: "https://github.com/kovidgoyal/kitty"
-            }
         ]
     }
 } as const
