@@ -33,17 +33,33 @@ const items: NavItem[] = [
   display: flex;
   justify-content: center;
   pointer-events: none;
-  padding: 0 $spacing-xl;
+  padding: 0 $spacing-sm;
   z-index: 10;
+
+  @include respond-to(sm) {
+    padding: 0 $spacing-lg;
+  }
+
+  @include respond-to(lg) {
+    padding: 0 $spacing-xl;
+  }
 }
 
 .navbar {
   @include flex-between;
   width: 100%;
-  padding: $spacing-sm $spacing-lg;
-  margin: 0 $spacing-2xl;
+  padding: $spacing-sm $spacing-md;
+  margin: 0;
   border-radius: $radius-xl;
   pointer-events: auto;
+
+  @include respond-to(md) {
+    margin: 0 $spacing-lg;
+  }
+
+  @include respond-to(xl) {
+    margin: 0 $spacing-2xl;
+  }
 }
 
 .navbar-start {
@@ -52,6 +68,10 @@ const items: NavItem[] = [
 
 .navbar-end {
   @include flex-center;
-  gap: $spacing-md;
+  gap: $spacing-sm;
+
+  @include respond-to(sm) {
+    gap: $spacing-md;
+  }
 }
 </style>

@@ -60,18 +60,8 @@ onBeforeUnmount(() => {
 <template>
   <div class="home-hero">
     <div class="home-hero__theme">
-      <button
-        ref="buttonRef"
-        class="home-hero__theme-btn"
-        @click="toggleThemeMenu"
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+      <button ref="buttonRef" class="home-hero__theme-btn" @click="toggleThemeMenu">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="1" y="1" width="4" height="4" rx="1" fill="currentColor" />
           <rect x="6" y="1" width="4" height="4" rx="1" fill="currentColor" />
           <rect x="11" y="1" width="4" height="4" rx="1" fill="currentColor" />
@@ -87,17 +77,9 @@ onBeforeUnmount(() => {
 
       <Transition name="theme-fade">
         <div v-if="showThemeMenu" ref="menuRef" class="home-hero__theme-menu">
-          <button
-            v-for="theme in themes"
-            :key="theme"
-            class="home-hero__theme-option"
-            :class="{ active: currentTheme === theme }"
-            @click="setTheme(theme)"
-          >
-            <span
-              class="home-hero__theme-preview"
-              :class="`home-hero__theme-preview--${theme}`"
-            />
+          <button v-for="theme in themes" :key="theme" class="home-hero__theme-option"
+            :class="{ active: currentTheme === theme }" @click="setTheme(theme)">
+            <span class="home-hero__theme-preview" :class="`home-hero__theme-preview--${theme}`" />
             <span>{{ theme }}</span>
           </button>
         </div>
@@ -116,10 +98,7 @@ onBeforeUnmount(() => {
         Ports
       </router-link>
 
-      <router-link
-        to="/palette"
-        class="home-hero__btn home-hero__btn--secondary"
-      >
+      <router-link to="/palette" class="home-hero__btn home-hero__btn--secondary">
         Palette
       </router-link>
     </div>
@@ -134,26 +113,45 @@ onBeforeUnmount(() => {
   text-align: center;
   z-index: 1;
   max-width: 800px;
+  width: 100%;
+  padding: 0 $spacing-md;
 
   h1 {
-    font-size: $font-size-3xl;
+    font-size: $font-size-2xl; // 32px – phone default
     font-weight: $font-weight-bold;
     color: var(--color-text);
     margin-bottom: $spacing-md;
     line-height: $line-height-tight;
+
+    @include respond-to(sm) {
+      font-size: $font-size-3xl; // 48px – sm+
+    }
+
+    @include respond-to(xl) {
+      font-size: $font-size-3xl;
+    }
   }
 
   p {
     max-width: 560px;
-    font-size: $font-size-lg;
+    font-size: $font-size-base; // 16px – phone default
     color: var(--color-subtle);
-    margin-bottom: $spacing-2xl;
+    margin-bottom: $spacing-xl;
     line-height: $line-height-base;
+
+    @include respond-to(sm) {
+      font-size: $font-size-lg; // 20px – sm+
+      margin-bottom: $spacing-2xl;
+    }
   }
 
   &__theme {
     position: relative;
-    margin-bottom: $spacing-xl;
+    margin-bottom: $spacing-lg;
+
+    @include respond-to(sm) {
+      margin-bottom: $spacing-xl;
+    }
   }
 
   &__theme-btn {
@@ -240,15 +238,26 @@ onBeforeUnmount(() => {
 
   &__actions {
     display: flex;
-    gap: $spacing-lg;
+    flex-direction: column; // stack vertically on mobile
+    gap: $spacing-sm;
+    width: 100%;
+    max-width: 320px;
+
+    @include respond-to(sm) {
+      flex-direction: row; // side by side on sm+
+      gap: $spacing-lg;
+      width: auto;
+      max-width: none;
+    }
   }
 
   &__btn {
-    padding: $spacing-md $spacing-2xl;
+    padding: $spacing-md $spacing-xl;
     border-radius: $radius-pill;
     font-size: $font-size-base;
     font-weight: $font-weight-semibold;
     text-decoration: none;
+    text-align: center;
     transition:
       background-color $transition-base,
       border-color $transition-base,
@@ -256,6 +265,10 @@ onBeforeUnmount(() => {
 
     &:hover {
       transform: translateY(-1px);
+    }
+
+    @include respond-to(sm) {
+      padding: $spacing-md $spacing-2xl;
     }
 
     &--primary {

@@ -53,21 +53,11 @@ async function copyToClipboard(value: string, key: string) {
             <p class="collection-subtitle">{{ role.subtitle }}</p>
           </div>
           <div class="swatch-group">
-            <div
-              v-for="sw in role.swatches"
-              :key="sw.variant"
-              class="swatch-wrapper"
-            >
-              <span
-                class="swatch-dot"
-                :style="{ backgroundColor: sw.hex }"
-              ></span>
-              <div
-                class="swatch-tooltip"
-                @click.stop="
-                  copyToClipboard(sw.hex, role.key + '-' + sw.variant)
-                "
-              >
+            <div v-for="sw in role.swatches" :key="sw.variant" class="swatch-wrapper">
+              <span class="swatch-dot" :style="{ backgroundColor: sw.hex }"></span>
+              <div class="swatch-tooltip" @click.stop="
+                copyToClipboard(sw.hex, role.key + '-' + sw.variant)
+                ">
                 {{
                   copiedKey === role.key + "-" + sw.variant ? "Copied!" : sw.hex
                 }}
@@ -79,12 +69,7 @@ async function copyToClipboard(value: string, key: string) {
         <p class="collection-description" v-html="role.descriptionHtml"></p>
 
         <div class="collection-tags">
-          <span
-            v-for="tag in role.tags"
-            :key="tag"
-            class="collection-tag"
-            :class="'tag-' + role.key"
-          >
+          <span v-for="tag in role.tags" :key="tag" class="collection-tag" :class="'tag-' + role.key">
             {{ tag }}
           </span>
         </div>
@@ -96,14 +81,35 @@ async function copyToClipboard(value: string, key: string) {
 <style lang="scss">
 .collections {
   background-color: var(--color-base);
-  padding: $spacing-lg $spacing-xl;
-  margin: $spacing-3xl $spacing-3xl;
+  padding: $spacing-lg $spacing-md;
+  margin: $spacing-xl $spacing-md;
+
+  @include respond-to(sm) {
+    padding: $spacing-lg $spacing-xl;
+    margin: $spacing-2xl $spacing-xl;
+  }
+
+  @include respond-to(lg) {
+    margin: $spacing-3xl $spacing-2xl;
+  }
+
+  @include respond-to(xl) {
+    margin: $spacing-3xl $spacing-3xl;
+  }
 }
 
 .collections-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(1, 1fr); // 1 col on phones
   gap: $spacing-md;
+
+  @include respond-to(sm) {
+    grid-template-columns: repeat(2, 1fr); // 2 cols on sm
+  }
+
+  @include respond-to(lg) {
+    grid-template-columns: repeat(3, 1fr); // 3 cols on lg+
+  }
 }
 
 .collection-card {

@@ -38,10 +38,10 @@ function hexToRgb(hex: string) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? {
-        r: parseInt(result[1]!, 16),
-        g: parseInt(result[2]!, 16),
-        b: parseInt(result[3]!, 16),
-      }
+      r: parseInt(result[1]!, 16),
+      g: parseInt(result[2]!, 16),
+      b: parseInt(result[3]!, 16),
+    }
     : { r: 0, g: 0, b: 0 };
 }
 
@@ -105,62 +105,48 @@ async function copyToClipboard(value: string, key: string) {
     <div class="potions-header">
       <h3>{{ palette.name }} {{ toProperCase(activeVariant) }}</h3>
       <div class="variant-tabs">
-        <button
-          v-for="v in variants"
-          :key="v.key"
-          :class="['variant-tab', { active: activeVariant === v.key }]"
-          @click="activeVariant = v.key"
-        >
+        <button v-for="v in variants" :key="v.key" :class="['variant-tab', { active: activeVariant === v.key }]"
+          @click="activeVariant = v.key">
           {{ v.label }}
         </button>
       </div>
     </div>
 
-    <table class="collection-table">
-      <thead>
-        <tr>
-          <th class="col-role">Role</th>
-          <th class="col-hex">Hex</th>
-          <th class="col-rgb">RGB</th>
-          <th class="col-hsl">HSL</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="color in colorEntries" :key="color.key">
-          <td class="col-role">
-            <span
-              class="color-swatch"
-              :style="{ backgroundColor: color.hex }"
-            ></span>
-            <span class="color-name">{{ color.label }}</span>
-          </td>
-          <td class="col-hex">
-            <p
-              class="copyable"
-              @click="copyToClipboard(color.hex, color.key + '-hex')"
-            >
-              {{ copiedKey === color.key + "-hex" ? "Copied!" : color.hex }}
-            </p>
-          </td>
-          <td class="col-rgb">
-            <p
-              class="copyable"
-              @click="copyToClipboard(color.rgb, color.key + '-rgb')"
-            >
-              {{ copiedKey === color.key + "-rgb" ? "Copied!" : color.rgb }}
-            </p>
-          </td>
-          <td class="col-hsl">
-            <p
-              class="copyable"
-              @click="copyToClipboard(color.hsl, color.key + '-hsl')"
-            >
-              {{ copiedKey === color.key + "-hsl" ? "Copied!" : color.hsl }}
-            </p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-scroll">
+      <table class="collection-table">
+        <thead>
+          <tr>
+            <th class="col-role">Role</th>
+            <th class="col-hex">Hex</th>
+            <th class="col-rgb">RGB</th>
+            <th class="col-hsl">HSL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="color in colorEntries" :key="color.key">
+            <td class="col-role">
+              <span class="color-swatch" :style="{ backgroundColor: color.hex }"></span>
+              <span class="color-name">{{ color.label }}</span>
+            </td>
+            <td class="col-hex">
+              <p class="copyable" @click="copyToClipboard(color.hex, color.key + '-hex')">
+                {{ copiedKey === color.key + "-hex" ? "Copied!" : color.hex }}
+              </p>
+            </td>
+            <td class="col-rgb">
+              <p class="copyable" @click="copyToClipboard(color.rgb, color.key + '-rgb')">
+                {{ copiedKey === color.key + "-rgb" ? "Copied!" : color.rgb }}
+              </p>
+            </td>
+            <td class="col-hsl">
+              <p class="copyable" @click="copyToClipboard(color.hsl, color.key + '-hsl')">
+                {{ copiedKey === color.key + "-hsl" ? "Copied!" : color.hsl }}
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -169,12 +155,28 @@ async function copyToClipboard(value: string, key: string) {
   border: 1px solid var(--color-overlay);
   border-radius: $radius-lg;
   background-color: var(--color-base);
-  padding: $spacing-lg $spacing-xl;
-  margin: $spacing-3xl $spacing-4xl;
+  padding: $spacing-lg $spacing-md;
+  margin: $spacing-xl $spacing-md;
+  overflow: hidden;
+
+  @include respond-to(sm) {
+    padding: $spacing-lg $spacing-xl;
+    margin: $spacing-2xl $spacing-xl;
+  }
+
+  @include respond-to(lg) {
+    margin: $spacing-3xl $spacing-2xl;
+  }
+
+  @include respond-to(xl) {
+    margin: $spacing-3xl $spacing-4xl;
+  }
 }
 
 .potions-header {
   @include flex-between;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
   margin-bottom: $spacing-lg;
 
   h3 {
@@ -214,8 +216,15 @@ async function copyToClipboard(value: string, key: string) {
   }
 }
 
+// Horizontal scroll wrapper for the table on small screens
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .collection-table {
   width: 100%;
+  min-width: 560px; // prevent columns from collapsing
   border-collapse: collapse;
   font-family: $font-family-mono;
   font-size: $font-size-sm;

@@ -16,7 +16,7 @@ const currentYear: number = new Date().getFullYear();
 <style scoped lang="scss">
 footer {
   @include flex-between;
-  height: 5vh;
+  height: 10vh;
   margin: $spacing-md $spacing-4xl;
 
   p {

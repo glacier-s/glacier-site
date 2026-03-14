@@ -57,17 +57,36 @@ const filteredPorts = computed(() => {
     @include flex-column;
     gap: $spacing-lg;
     height: 100%;
-    margin: $spacing-3xl $spacing-4xl;
+    margin: $spacing-xl $spacing-md;
     overflow: hidden;
+
+    @include respond-to(sm) {
+        margin: $spacing-2xl $spacing-xl;
+    }
+
+    @include respond-to(lg) {
+        margin: $spacing-3xl $spacing-2xl;
+    }
+
+    @include respond-to(xl) {
+        margin: $spacing-3xl $spacing-4xl;
+    }
 }
 
 section {
     display: flex;
+    flex-direction: column; // sidebar stacks above on mobile
     align-items: stretch;
-    margin: $spacing-2xl 0;
-    gap: $spacing-lg;
+    margin: $spacing-lg 0;
+    gap: $spacing-md;
     flex: 1;
     min-height: 0;
+
+    @include respond-to(md) {
+        flex-direction: row; // side-by-side on md+
+        margin: $spacing-2xl 0;
+        gap: $spacing-lg;
+    }
 }
 
 .port-grid-wrapper {
@@ -77,8 +96,17 @@ section {
 
 .port-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: $spacing-md;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); // tighter on mobile
+    gap: $spacing-sm;
+
+    @include respond-to(sm) {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: $spacing-md;
+    }
+
+    @include respond-to(lg) {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
 }
 
 .empty-state {

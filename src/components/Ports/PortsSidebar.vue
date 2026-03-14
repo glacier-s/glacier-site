@@ -41,13 +41,24 @@ const emit = defineEmits<{
 
 <style lang="scss" scoped>
 .sidebar {
-    @include flex-column;
-    gap: $spacing-lg;
-    width: 260px;
+    display: flex;
+    flex-direction: row; // horizontal on mobile (search + filters side by side)
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    width: 100%;
     flex-shrink: 0;
-    overflow-y: auto;
-    padding-right: $spacing-xs;
-    @include custom-scrollbar;
+
+    @include respond-to(md) {
+        @include flex-column;
+        gap: $spacing-lg;
+        width: 220px;
+        padding-right: $spacing-xs;
+        @include custom-scrollbar;
+    }
+
+    @include respond-to(xl) {
+        width: 260px;
+    }
 }
 
 .search-wrapper {
@@ -59,6 +70,13 @@ const emit = defineEmits<{
     border-radius: $radius-lg;
     padding: $spacing-sm $spacing-md;
     transition: border-color $transition-fast;
+    flex: 1; // grow in row (mobile)
+    min-width: 160px;
+
+    @include respond-to(md) {
+        flex: none; // don't stretch vertically in column (desktop)
+        min-width: unset;
+    }
 
     &:focus-within {
         border-color: var(--color-lilac);
@@ -88,6 +106,13 @@ const emit = defineEmits<{
 .filter-section {
     @include flex-column;
     gap: $spacing-sm;
+    flex: 1; // grow in row (mobile)
+    min-width: 160px;
+
+    @include respond-to(md) {
+        flex: none; // don't stretch vertically in column (desktop)
+        min-width: unset;
+    }
 }
 
 .tag-group {

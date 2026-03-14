@@ -27,7 +27,21 @@ import { palette } from "@/module/palette";
 <style lang="scss" scoped>
 header {
   @include flex-between;
-  margin: $spacing-3xl $spacing-4xl;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+  margin: $spacing-xl $spacing-md;
+
+  @include respond-to(sm) {
+    margin: $spacing-2xl $spacing-xl;
+  }
+
+  @include respond-to(lg) {
+    margin: $spacing-3xl $spacing-2xl;
+  }
+
+  @include respond-to(xl) {
+    margin: $spacing-3xl $spacing-4xl;
+  }
 
   .header-left {
     @include flex-column;
