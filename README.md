@@ -124,7 +124,7 @@ Konfigurasi Vite (`vite.config.ts`) menambahkan:
    │  └─ index.ts
    ├─ module/
    │  ├─ icons.ts
-   │  ��─ ports.ts
+   │  └─ ports.ts
    ├─ assets/
    │  └─ scss/
    │     ├─ main.scss
