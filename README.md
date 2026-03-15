@@ -16,7 +16,7 @@ Aplikasi ini menampilkan:
 
 ## Screenshots
 
-![Glacier Home](assets/screenshots/home.png)
+![Glacier Home](src/assets/screenshots/home.png)
 
 ---
 
